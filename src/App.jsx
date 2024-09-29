@@ -1,8 +1,10 @@
-import React from 'react'
+import Homepage from './pages/Homepage'
 
 function App() {
   return (
-    <div>App</div>
+    <div className='font-sans'>
+      <Homepage />
+    </div>
   )
 }
 
