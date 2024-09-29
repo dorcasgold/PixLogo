@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react"
 
 function Homepage() {
   return (
-    <div className='bg-gradient-to-r from-gray-900 to-slate-900 h-screen w-full overflow-hidden'>
+    <div className='bg-slate-950 h-screen w-full overflow-hidden'>
       <div className="flex flex-col mx-2">
         <Navbar />
         <div className='text-center mx-2 flex flex-col items-center justify-center translate-y-20 font-extrabold 
