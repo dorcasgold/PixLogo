@@ -1,48 +1,41 @@
-import BackgroundController from "@/components/BackgroundController";
-import Header from "@/components/Header";
-import IconController from "@/components/IconController";
-import LogoPreview from "@/components/LogoPreview";
-import SideNav from "@/components/SideNav";
-import { useState } from "react";
-import {
-  ResizablePanelGroup,
-  ResizablePanel,
-  ResizableHandle,
-} from "@/components/ui/resizable"; // Adjust the import path if needed
+import BackgroundController from '@/components/BackgroundController'
+import Header from '@/components/Header'
+import IconController from '@/components/IconController'
+import SideNav from '@/components/SideNav'
+import { useState } from 'react';
 
 function Mainpage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <main className="font-sans bg-slate-950 text-slate-100 min-h-screen">
+    <main className="font-sans bg-slate-950 text-slate-100 h-screen overflow-hidden">
+      {/* Header */}
       <Header />
 
-      {/* Resizable Panel Group */}
-      <ResizablePanelGroup direction="horizontal" className="h-screen">
-        {/* Resizable SideNav */}
-        <ResizablePanel defaultSize={15} minSize={8} maxSize={15} className="bg-slate-900">
-          <div className="h-full">
-            <SideNav selectedIndex={(value) => setSelectedIndex(value)} />
-          </div>
-        </ResizablePanel>
+      {/* Flex container for Sidebar and Main content */}
+      <div className="flex h-full">
 
-        {/* Resizable Handle */}
-        <ResizableHandle withHandle className="bg-slate-700" />
+        {/* Sidebar (on small screens, icons only) */}
+        <div className="w-16 md:w-64 h-full flex-shrink-0">
+          <SideNav selectedIndex={(value) => setSelectedIndex(value)} />
+        </div>
 
-        {/* Main content section */}
-        <ResizablePanel defaultSize={80}>
-          <div className="grid grid-cols-1 md:grid-cols-6 h-full">
-            <div className="md:col-span-3 border shadow-sm border-y-0 border-l-0 border-r-[1px] p-5 overflow-auto">
-              {selectedIndex === 0 ? <IconController /> : <BackgroundController />}
-            </div>
-            <div className="md:col-span-3">
-              <LogoPreview />
-            </div>
+        {/* Main content area */}
+        <div className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 overflow-auto">
+          {/* First content block */}
+          <div className="border shadow-sm p-5">
+            {selectedIndex === 0 ? <IconController /> : <BackgroundController />}
           </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+
+          {/* Second content block */}
+          <div className="border shadow-sm p-5">
+            LogoPreview
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
 
-export default Mainpage;
+
+export default Mainpage

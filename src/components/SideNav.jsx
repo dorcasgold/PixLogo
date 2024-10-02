@@ -1,44 +1,43 @@
-import { Image } from "lucide-react";
-import { useState } from "react";
-import person from './person.gif';
-import ratio from './ratio.gif';
-
+import { Image, PencilRuler, Shield } from "lucide-react"
+import { useState } from "react"
 
 function SideNav({ selectedIndex }) {
   const menuList = [
     {
       id: 1,
-      name: "Icon",
-      icon: person,
+      name: 'Icon',
+      icon: PencilRuler
     },
     {
       id: 2,
-      name: "Background",
-      icon: ratio,
-    }
+      name: 'Background',
+      icon: Image
+    },
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
+
   return (
-    <div className="border shadow-sm border-y-0 border-l-0 border-r-[1px] h-screen">
+    <div className="border shadow-sm h-full">
       <div>
         {menuList.map((menu, index) => (
           <h2
+            key={index}
             onClick={() => {
               setActiveIndex(index);
               selectedIndex(index);
             }}
-            className={`p-2 text-lg px-7 text-gray-300 my-2 cursor-pointer bg-slate-900 hover:bg-primary hover:text-white flex gap-2 items-center
-              ${activeIndex === index && "bg-gray-700 text-white"}
+            className={`p-2 text-lg px-7 my-2 cursor-pointer hover:bg-primary hover:text-white flex gap-2 items-center
+              ${activeIndex === index ? 'bg-primary text-white' : 'text-gray-500'}
               `}
-            key={index}
           >
-            {typeof menu.icon === "string" ? (
-              <img src={menu.icon} alt={menu.name} className="w-10 h-10" />
-            ) : (
-              <menu.icon className="w-6 h-6" />
-            )}
-            {menu.name}
+            {/* Display icon on all screens */}
+            <menu.icon />
+
+            {/* Display text only on medium and larger screens */}
+            <span className="hidden md:inline">
+              {menu.name}
+            </span>
           </h2>
         ))}
       </div>
@@ -46,4 +45,4 @@ function SideNav({ selectedIndex }) {
   );
 }
 
-export default SideNav;
+export default SideNav
