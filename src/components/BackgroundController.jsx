@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Slider } from "./ui/slider"
 import ColorPickerController from "./ColorPickerController";
+import { UpdateStorageContext } from "@/context/UpdateStorageContext";
 
 function BackgroundController() {
-  const [rounded, setRounded] = useState(0);
-  const [padding, setPadding] = useState(0);
-  const [color, setColor] = useState("000")
   const storageValue = JSON.parse(localStorage.getItem('value'));
+  const [rounded, setRounded] = useState(storageValue ? storageValue?.bgRounded : 0);
+  const [padding, setPadding] = useState(storageValue ? storageValue?.bgPadding : 0);
+  const [color, setColor] = useState(storageValue ? storageValue?.bgColor : '#190b6e');
+  const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
 
   useEffect(() => {
     const updatedValue = {
@@ -15,10 +17,11 @@ function BackgroundController() {
       bgPadding: padding,
       bgColor: color
     }
+    setUpdateStorage(updatedValue)
     localStorage.setItem('value', JSON.stringify(updatedValue))
   })
   return (
-    <div>
+    <div className="text-slate-50">
       <div className=" py-2">
         <label className="p-2 flex justify-between items-center">Rounded <span>{rounded} px</span></label>
         <Slider defaultValue={[0]} max={512} step={1}
